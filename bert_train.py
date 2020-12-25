@@ -97,6 +97,3 @@ if __name__=='__main__':
     #     step = 0
 
     # model.fit_generator(train)
-
-    
-

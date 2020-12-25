@@ -28,3 +28,7 @@ class GlobalConfig:
     Bert_checkpoint_path ="./data/bert_source/Chinese_L-12_H-768_A-12/bert_model.ckpt" 
     vocab_path = "./data/bert_source/Chinese_L-12_H-768_A-12/vocab.txt"
 
+# Sougou文件路径设置
+    Sougou_embedding_path = "./data/sougou_pretrain_embedding/wiki_embedding.pkl"
+    Sougou_word2id_path = "./data/sougou_pretrain_embedding/word2id.pkl"
+
