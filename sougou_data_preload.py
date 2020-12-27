@@ -90,13 +90,16 @@ if __name__=='__main__':
 #    print(tmp1[5])
 #    print(tmp2[5])
     train_text, train_label = load_sougou_dataset(GlobalConfig)
-    train_text, train_label = np.array(train_text[:10]), np.array(train_label[:10])
-    tmp = tf.convert_to_tensor(train_text)
-    tmp1 = tf.convert_to_tensor(train_label)
-    print(tmp)
+    train_text, train_label = np.array(train_text[:30]), np.array(train_label[:30])
+    for i in range(len(train_text)):
+        print("-*-"*10, i, train_text[i])
     
-    print(len(train_text[1]))
-    print(train_label[5])
+    tmp1 = tf.convert_to_tensor(train_text)
+#    tmp2 = tf.convert_to_tensor(train_label) 
+    
+#    print(train_text)
+#    print(len(train_text[1]))
+#    print(train_label[5])
     # train_data, train_label, dev_data, dev_label = get_X_and_Y_data(train_text, train_id)
    # print(train_text[1], train_id[1])
     # print(train_data)

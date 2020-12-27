@@ -9,7 +9,10 @@
 ''' 
 import tensorflow as tf
 from tensorflow import  keras
+# bert模型的配置文件
 from models.BertBilstm import BertModelConfig
+# ernie模型的配置文件
+# from models.BertBilstm import BertModelConfig
 from config import GlobalConfig, BASE_PATH
 from sklearn.model_selection import train_test_split
 from keras_bert import Tokenizer

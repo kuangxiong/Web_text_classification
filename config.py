@@ -32,3 +32,8 @@ class GlobalConfig:
     Sougou_embedding_path = "./data/sougou_pretrain_embedding/wiki_embedding.pkl"
     Sougou_word2id_path = "./data/sougou_pretrain_embedding/word2id.pkl"
 
+# ernie 模型配置文件
+    Ernie_config_path = "./data/ERNIE_stable-1.0.1/ERNIE_tensor/bert_config.json"
+    Ernie_checkpoint_path ="./data/ERNIE_stable-1.0.1/ERNIE_tensor/bert_model.ckpt" 
+    Ernie_vocab_path = "./data/ERNIE_stable-1.0.1/ERNIE_tensor/vocab.txt"
+

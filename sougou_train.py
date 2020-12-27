@@ -28,7 +28,7 @@ if __name__=='__main__':
     start_time = time.time()
     train_data, train_label = load_sougou_dataset(GlobalConfig, max_length =
             SougouModelConfig.max_len) 
-    train_data, train_label = train_data[:100], train_label[:100]
+    #train_data, train_label = train_data[:100], train_label[:100]
     # train_X, train_Y, dev_X, dev_Y = get_X_and_Y_data(train_data, train_label) 
 
     # train_dataset = tf.data.Dataset.from_tensor_slices((train_X, train_Y))
@@ -49,11 +49,8 @@ if __name__=='__main__':
     # ckpt_manager = tf.train.CheckpointManager(ckpt, GlobalConfig.save_path,
     #         checkpoint_name = ModelConfig.model_name+'.ckpt', max_to_keep = 3)
     # # test_acc = 0.0
-    print(len(train_data[0]))
-    print(len(train_data))
-    print(train_data[0])
     train_X, train_Y = np.array(train_data), np.array(train_label)
-    train_X, train_Y = tf.convert_to_tensor(train_X), tf.convert_to_tensor(train_Y)
+    # train_X, train_Y = tf.convert_to_tensor(train_X), tf.convert_to_tensor(train_Y)
     #train_X, train_Y = np.asarray(train_data).astype('float32'), np.asarray(train_label).astype('float32')
     
 
