@@ -21,7 +21,6 @@ import os
 sys.path.append("..")
 from config import GlobalConfig, BASE_PATH
 
-
 def data_load(GlobalConfig):
     """ 用于读取训练数据和测试数据
 
@@ -161,7 +160,7 @@ def remove_html_punc(text):
     tmp = re.sub(r"=750\)","", tmp)
     return tmp
 
-def get_text_id(word_dict, train_text, max_length=ModelConfig.n_vocab):
+def get_text_id(word_dict, train_text, training=True, max_length=ModelConfig.n_vocab):
     """
     将训练集上的文字字符转化为字编号
 
@@ -173,26 +172,24 @@ def get_text_id(word_dict, train_text, max_length=ModelConfig.n_vocab):
     Returns:
         [type]: [description]
     """
-    data_X, data_Y = [], []
-    # train_label, test_label = [], []
+    data_X =  []
+    data_id=[]
+    data_Y = []
     N = len(train_text)
-    # N_train, N_test = len(train_text), len(test_text)
     for i in range(N):
         tmp = [word_dict[e] for e in train_text[i][1]]
         data_X.append(tmp)
-        data_Y.append(train_text[i][2])
-    # print(123123, N, train_text, train_label)
+        if training==True:
+            data_Y.append(train_text[i][2])
+        else:
+            data_id.append(train_text[i][0])
     data_X_id = keras.preprocessing.sequence.pad_sequences(data_X, maxlen=max_length, dtype='int32',
     padding='post', truncating='post', value=0.)
     
-#     for i in range(N_test):
-#         tmp = [word_dict[e] for e in test_text[i][1]]
-#         test_text_id.append(tmp)
-# #        test_id.append(test_text[i][0])
-#     test_text_id = keras.preprocessing.sequence.pad_sequences(test_text_id, maxlen=max_length, dtype='int32',
-#     padding='post', truncating='post', value=0.)
-   # return train_text_id, train_id, test_text_id, test_id
-    return data_X_id, data_Y 
+    if training==True:
+        return data_X_id, data_Y 
+    else:
+        return data_X_id, data_id
     
 def load_model_dataset(GlobalConfig, max_length = ModelConfig.max_len):
     """
