@@ -30,14 +30,17 @@ args = parser.parse_args()
 
 if __name__=='__main__':
     start_time = time.time()
-    train_data, train_label = load_model_dataset(GlobalConfig, max_length = ModelConfig.max_len) 
+    test_data, test_label = load_model_dataset(GlobalConfig, training=False, max_length = ModelConfig.max_len) 
+    print(test_data[1], test_label[1])
     
-    worddict_file = open("word_dict.pkl", "rb")
-    worddict = pickle.load(worddict_file)
-
     model_file = os.path.join(GlobalConfig.save_path, "model.h")
     model = keras.models.load_model(model_file)
     print(model.summary())
+    print(test_data[1])
+    result = model.predict(test_data)
+    print(len(result), len(test_data))
+    print(result)
+    print(tf.argmax(result, 1)-1)
 
     # model.fit_generator(train)
 
