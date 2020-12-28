@@ -1,3 +1,6 @@
 data/
 .data/
 save_model/
+test_function/
+.DS_Store
+__pycache__
