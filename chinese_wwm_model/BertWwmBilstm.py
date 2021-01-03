@@ -4,6 +4,7 @@ import os
 #from models import BertBilstm
 from keras_bert import Tokenizer
 from keras_bert import load_trained_model_from_checkpoint
+from attention import Attention
 
 tmp_base_path = os.path.dirname(__file__)
 BASE_PATH = os.path.dirname(tmp_base_path)
@@ -48,11 +49,14 @@ def bertwwm_bilstm(ModelConfig):
 #    text_input = tf.keras.layers.Input(shape=(2, ModelConfig.max_len), dtype=tf.int32, name="input")
     bert_output = bert_model([text_id, segment_id])
 # bert_output = bert_model(text_input)
-    bilstm_output = keras.layers.Bidirectional(keras.layers.LSTM(ModelConfig.hidden_size//2))(bert_output)
-    dropout = keras.layers.Dropout(ModelConfig.dropout)(bilstm_output, training=True)
+    bilstm_output = keras.layers.Bidirectional(keras.layers.LSTM(ModelConfig.hidden_size//2, \
+			return_sequences=True, dropout=0.2))(bert_output)
+    atten_output = Attention(name="attention_weight")(bilstm_output)
+#	dropout = keras.layers.Dropout(ModelConfig.dropout)(atten_output, training=True)
 
     #keras.layers.Dropout(ModelConfig.dropout)
-    output1 = keras.layers.Dense(64, activation='relu')(dropout)
+    output1 = keras.layers.Dense(64, activation='relu')(atten_output)
+#output1 = keras.layers.Dense(64, activation='relu')(atten_output)
     output2 = keras.layers.Dense(3, activation='softmax')(output1)
     
     model = keras.Model(inputs=[text_id, segment_id], outputs=[output2])

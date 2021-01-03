@@ -46,7 +46,7 @@ if __name__=='__main__':
     result_writer = csv.writer(result_file)
     result_writer.writerow(["id","y"])
     for i in range(len(test_label)):
-        result_writer.writerow([test_id[i][:-1], test_label[i]])
+        result_writer.writerow([test_id[i][:-1], test_label[i].numpy()])
     result_file.close()
 
 
