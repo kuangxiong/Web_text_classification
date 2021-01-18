@@ -4,12 +4,12 @@ import os
 #from models import BertBilstm
 from keras_bert import Tokenizer
 from keras_bert import load_trained_model_from_checkpoint
-from attention import Attention
+#from attention import Attention
 
 tmp_base_path = os.path.dirname(__file__)
 BASE_PATH = os.path.dirname(tmp_base_path)
 
-class BertWwmModelConfig:
+class ChineseBertWwmModelConfig:
     """ 
     Args:
         object ([type]): [description]
@@ -27,15 +27,16 @@ class BertWwmModelConfig:
     embedding_size = 516
     # BertWwm模型配置路径
 
-#    bert_config_path = os.path.join(BASE_PATH, "data/Chinese_wwm/bert_config.json")
-    bert_config_path = "../data/chinese_wwm/bert_config.json"
-#    bert_checkpoint_path = os.path.join(BASE_PATH, "data/Chinese_wwm/bert_model.ckpt")
-    bert_checkpoint_path = "../data/chinese_wwm/bert_model.ckpt"
+#    bert_config_path = os.path.join(BASE_PATH, "data/Chinese_Roberta_wwm_ext/bert_config.json")
+    bert_config_path = "../data/chinese_roberta_wwm_ext/bert_config.json"
+#    bert_checkpoint_path = os.path.join(BASE_PATH,
+#    "data/Chinese_Roberta_wwm_ext/bert_model.ckpt")
+    bert_checkpoint_path = "../data/chinese_roberta_wwm_ext/bert_model.ckpt"
 # bert_vocab_path = os.path.join(BASE_PATH, "data/Chinese_wwm/vocab.txt")
-    bert_vocab_path = "../data/chinese_wwm/vocab.txt"
+    bert_vocab_path = "../data/chinese_roberta_wwm_ext/vocab.txt"
     
 
-def bertwwm_bilstm(ModelConfig):
+def chinese_bertwwm_bilstm(ModelConfig):
     
     bert_model = load_trained_model_from_checkpoint(ModelConfig.bert_config_path,\
         ModelConfig.bert_checkpoint_path, seq_len=ModelConfig.max_len)
@@ -51,11 +52,11 @@ def bertwwm_bilstm(ModelConfig):
 # bert_output = bert_model(text_input)
     bilstm_output = keras.layers.Bidirectional(keras.layers.LSTM(ModelConfig.hidden_size//2, \
 			return_sequences=True, dropout=0.2))(bert_output)
-    atten_output = Attention(name="attention_weight")(bilstm_output)
+#    atten_output = Attention(name="attention_weight")(bilstm_output)
 #	dropout = keras.layers.Dropout(ModelConfig.dropout)(atten_output, training=True)
 
     #keras.layers.Dropout(ModelConfig.dropout)
-    output1 = keras.layers.Dense(64, activation='relu')(atten_output)
+    output1 = keras.layers.Dense(64, activation='relu')(bilstm_output)
 #output1 = keras.layers.Dense(64, activation='relu')(atten_output)
     output2 = keras.layers.Dense(3, activation='softmax')(output1)
     

@@ -30,60 +30,27 @@ def data_load(GlobalConfig):
         test_file ([str]): [测试文件]
 
     """
-#print(GlobalConfig.train_path)
-#    f_train_path = open(GlobalConfig.train_path)
-    # f_train_label = open(GlobalConfig.train_label)
-#    f_test_path = open(GlobalConfig.test_path)
 
     train_data, test_data=[], [] 
     with open(GlobalConfig.train_path, 'rb') as f:
-#    with open("./data/nCoV_100k_train.labled.csv", 'rb') as f:
         for line in f.readlines():
             tmp = remove_redundant_inf(line)
-            split_data = tmp.split(',')
+            split_data = next(csv.reader(tmp.splitlines(), skipinitialspace=True))
+#            split_data = tmp.split(',')
             if split_data[6] in ['0','1','-1'] and split_data[3]!=[]:
                 train_data.append([split_data[0], split_data[3], split_data[6]])
+            else:
+                print(split_data[6])
 
 
     with open(GlobalConfig.test_path, 'rb') as f:
-#    with open("./data/nCov_10k_test.csv", 'rb') as f:
         for line in f.readlines():
             tmp = remove_redundant_inf(line)
-            split_data = tmp.split(',')
+            split_data = next(csv.reader(tmp.splitlines(), skipinitialspace=True))
+			#split_data = tmp.split(',')
             test_data.append([split_data[0], split_data[3]])
-    # tmp_train_data = csv.reader(f_train_path)
-    # tmp_train_label = csv.reader(f_train_label)
-    # tmp_test_data = csv.reader(f_test_path)
 
-    # # 存放数据
-    # train_data_dict, test_data_dict  = {}, {}
-
-    # for e in tmp_train_data:
-
-    #     if len(e) >= 2 and (not check_contain_chinese(e[0])):
-
-    #         tmp = ''.join(e[1:])
-    #         tmp = remove_html_punc(tmp)
-    #         train_data_dict[e[0]] = re.sub('\n','', tmp)
-
-    # for e in tmp_test_data:
-    #     if len(e) >= 2 and (not check_contain_chinese(e[0])):
-    #         tmp = ''.join(e[1:])
-    #         tmp = remove_html_punc(tmp)
-    #         test_data_dict[e[0]] = re.sub('\n', '', tmp)
-
-    # train_data, test_data  = [], []
-    # # for e in train_data_dict:
-    #     # train_data.append([e, train_data_dict[e], train_label_dict[e]])
-    
-    # test_data = [list(e) for e in test_data_dict.items()]
-    
-
-    # f_train_path.close()
-    # # f_train_label.close()
-    # f_test_path.close()
-
-    return train_data[1:], test_data[1:]  
+    return train_data, test_data  
 
 def get_word_dict(train_data, test_data, N = ModelConfig.n_vocab):
     """
@@ -256,6 +223,7 @@ def remove_redundant_inf(text):
 
 if __name__=='__main__':
     train_data, test_data = data_load(GlobalConfig)
+    print("all data", len(train_data))
     print(train_data[:5])
     word_dict = get_word_dict(train_data, test_data)
     output = open('word_dict.pkl','wb')
@@ -263,7 +231,7 @@ if __name__=='__main__':
     # train_text_id, _ ,test_text_id, _ = get_text_id(word_dict, train_data, test_data)
     train_text, train_id = load_model_dataset(GlobalConfig, max_length = ModelConfig.max_len) 
     # train_data, train_label, dev_data, dev_label = get_X_and_Y_data(train_text, train_id)
-    print(train_text[1], train_id[1])
+#   print(train_text[1], train_id[1])
     # print(train_data)
     # print(len(train_label), train_label)
     # print(train_text_id[1])

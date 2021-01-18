@@ -27,17 +27,14 @@ def data_load(GlobalConfig):
         test_file ([str]): [测试文件]
 
     """
-#print(GlobalConfig.train_path)
-#    f_train_path = open(GlobalConfig.train_path)
-    # f_train_label = open(GlobalConfig.train_label)
-#    f_test_path = open(GlobalConfig.test_path)
 
     train_data, test_data=[], [] 
     with open(GlobalConfig.train_path, 'rb') as f:
 #    with open("./data/nCoV_100k_train.labled.csv", 'rb') as f:
         for line in f.readlines():
             tmp = remove_redundant_inf(line)
-            split_data = tmp.split(',')
+            split_data = next(csv.reader(tmp.splitlines(), skipinitialspace=True))
+#            split_data = tmp.split(',')
             if split_data[6] in ['0','1','-1'] and split_data[3]!=[]:
                 train_data.append([split_data[0], split_data[3], split_data[6]])
 
@@ -46,7 +43,8 @@ def data_load(GlobalConfig):
 #    with open("./data/nCov_10k_test.csv", 'rb') as f:
         for line in f.readlines():
             tmp = remove_redundant_inf(line)
-            split_data = tmp.split(',')
+            split_data = next(csv.reader(tmp.splitlines(), skipinitialspace=True))
+# split_data = tmp.split(',')
             test_data.append([split_data[0], split_data[3]])
     # tmp_train_data = csv.reader(f_train_path)
     # tmp_train_label = csv.reader(f_train_label)
@@ -256,6 +254,7 @@ def remove_redundant_inf(text):
 if __name__=='__main__':
     train_data, test_data = data_load(GlobalConfig)
     print(train_data[:5])
+    print(len(train_data))
     word_dict = get_word_dict(train_data, test_data)
     output = open('word_dict.pkl','wb')
     pickle.dump(word_dict, output)

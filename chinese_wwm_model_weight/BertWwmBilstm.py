@@ -20,7 +20,7 @@ class BertWwmModelConfig:
     n_vocab= 10000
     num_epochs = 10
     batch_size =128 
-    max_len = 200
+    max_len = 150
     learning_rate = 0.001
     hidden_size = 512
     n_classes = 3
@@ -46,17 +46,13 @@ def bertwwm_bilstm(ModelConfig):
     text_id = tf.keras.layers.Input(shape=(ModelConfig.max_len, ), dtype=tf.int32, name='text_id')
     segment_id = tf.keras.layers.Input(shape=(ModelConfig.max_len, ), dtype=tf.int32, name='segment_id')
 
-#    text_input = tf.keras.layers.Input(shape=(2, ModelConfig.max_len), dtype=tf.int32, name="input")
     bert_output = bert_model([text_id, segment_id])
-# bert_output = bert_model(text_input)
     bilstm_output = keras.layers.Bidirectional(keras.layers.LSTM(ModelConfig.hidden_size//2, \
 			return_sequences=True, dropout=0.2))(bert_output)
     atten_output = Attention(name="attention_weight")(bilstm_output)
-#	dropout = keras.layers.Dropout(ModelConfig.dropout)(atten_output, training=True)
 
     #keras.layers.Dropout(ModelConfig.dropout)
     output1 = keras.layers.Dense(64, activation='relu')(atten_output)
-#output1 = keras.layers.Dense(64, activation='relu')(atten_output)
     output2 = keras.layers.Dense(3, activation='softmax')(output1)
     
     model = keras.Model(inputs=[text_id, segment_id], outputs=[output2])
