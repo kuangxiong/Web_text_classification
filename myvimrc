@@ -1,0 +1,211 @@
+set nu
+
+syntax on
+
+set showmode 
+
+set showcmd
+
+set encoding=utf-8
+
+set backspace=2
+
+set autoindent 
+set tabstop=4
+set noeb
+"
+set confirm
+"
+set autoindent
+
+set cindent
+
+set ts=4
+set expandtab
+set autoindent
+set tabstop=4
+set softtabstop=4
+
+set shiftwidth=4
+
+set cursorline
+
+set textwidth=80
+
+set showmatch
+
+set hlsearch
+
+set incsearch
+
+set ignorecase
+
+set noerrorbells
+
+set autochdir
+
+set visualbell
+
+set autoread
+
+set wildmenu
+
+set wildmode=longest:list,full
+
+"""   kite   """
+"set statusline=%<%f\ %h%m%r%{kite#statusline()}%=%-14.(%l,%c%V%)\ %P
+"set laststatus=2  " always display the status line
+""let g:kite_auto_complete=0
+""let g:kite_snippets=0
+"let g:kite_tab_complete=1
+"set completeopt+=menuone   " show the popup menu even when there is only 1 match
+"set completeopt+=noinsert  " don't insert any text until user chooses a match
+"set completeopt-=longest   " don't insert the longest common text
+"set completeopt+=preview
+"autocmd CompleteDone * if !pumvisible() | pclose | endif
+"set belloff+=ctrlg  " if vim beeps during completion
+"let g:kite_documentation_continual=1
+""""""""""""""
+
+"
+
+inoremap ( ()<ESC>i
+""inoremap ) <c-r>=ClosePair(')')<CR>
+inoremap [ []<ESC>i
+""inoremap ] <c-r>=ClosePair(']')<CR>
+inoremap " ""<ESC>i
+inoremap ' ''<ESC>i
+
+set clipboard+=unnamed
+set smartindent
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible
+filetype off
+
+
+
+if exists('$TMUX')
+	set term=screen-256color
+endif
+
+" 是否打开tabline
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+set laststatus=2
+set t_Co=256
+set encoding=utf-8
+set langmenu=zh_CN.UTF-8
+set ambiwidth=double
+
+let g:airline#extensions#tabline#enabled=1 "顶部tab显示"
+nmap <tab> :bn<cr> "设置tab键映射"
+""""""""""""""""""""""""""""""set taglist"""""""""""""""""""""""""""""""""""""""""
+""let Tlist_Show_One_File=1     "不同时显示多个文件的tag，只显示当前文件的    
+""let Tlist_Exit_OnlyWindow=1   "如果taglist窗口是最后一个窗口，则退出vim   
+""let Tlist_Ctags_Cmd="/usr/bin/ctags" "将taglist与ctags关联  
+""let Tlist_Use_Right_Window=1
+""let Tlist_File_Fold_Auto_Close=1
+""let Tlist_GainFocus_On_ToggleOpen=1
+""""let Tlist_Auto_Open=1
+""let Tlist_WinWidth=30
+"map <f3> :Tlist<cr>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  Title of new file
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+autocmd BufNewFile *.cpp,*.[ch],*.py,*.sh,*.java exec ":call SetTitle()" 
+"
+func SetTitle() 
+    if &filetype == 'python'
+		call setline(1,"\# -*- coding:utf-8 -*-") 
+        call append(line("."), "'''")
+        call append(line(".")+1, "---------------------------------------------------------")
+		call append(line(".")+2," File Name: ".expand("%"))
+		call append(line(".")+3, " Author:kuangxiong")
+		call append(line(".")+4, " Mail: kuangxiong@lsec.cc.ac.cn")
+		call append(line(".")+5, " Created Time: ".strftime("%c")) 
+        call append(line(".")+6, "---------------------------------------------------------")
+        call append(line(".")+7, "'''")
+    elseif &filetype == 'sh' 
+		call setline(1,"\#########################################################################") 
+		call append(line("."), "\# File Name: ".expand("%")) 
+		call append(line(".")+1, "\# Author:kuangxiong ") 
+		call append(line(".")+2, "\# mail:kuangxiong@lsec.cc.ac.cn ") 
+		call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
+		call append(line(".")+4, "\#########################################################################") 
+		call append(line(".")+5, "\#!/bin/bash") 
+		call append(line(".")+6, "") 
+	elseif &filetype=='c' 
+		call setline(1, "/*************************************************************************") 
+		call append(line("."), "	> File Name: ".expand("%")) 
+		call append(line(".")+1, "	> Author:kuangxiong ") 
+		call append(line(".")+2, "	> Mail: kuangxiong@lsec.cc.ac.cn") 
+		call append(line(".")+3, "	> Created Time: ".strftime("%c")) 
+		call append(line(".")+4, " ************************************************************************/") 
+		call append(line(".")+5, "")
+""	endif
+""    if &filetype == 'cpp'
+""		call append(line(".")+6, "#include <iostream>")
+""		call append(line(".")+7, "using namespace std;")
+""		call append(line(".")+8, "")
+""	endif
+ ""   if &filetype == 'c'
+		call append(line(".")+6, "#include <stdio.h>")
+		call append(line(".")+7, "#include <stdlib.h>")
+		call append(line(".")+8, "#include <math.h>")
+		call append(line(".")+9, "")
+		call append(line(".")+10, "int main(int argc, char* argv[])")
+""	endif
+    endif
+	"	if &filetype == 'java'
+	"		call append(line(".")+6,"public class ".expand("%"))
+	"		call append(line(".")+7,"")
+	"	endif
+	"
+	autocmd BufNewFile * normal G
+endfunc 
+
+"""""""""""""""""""""set REPL"""""""""""""""""""""""""""""""
+""""let g:repl_program={'python':'ipython','default'='zsh','r'='R','lua':'lua'}
+""let g:repl_predefine_python={'numpy':'import numpy as np', 'matplotlib':'from matplotlib import pyplot as plt'}
+""let g:repl_cursor_down = 1
+""let g:repl_python_automerge = 1
+""let g:repl_ipython_version = '7'
+""nnoremap <C-r>: REPLToggle<Cr>
+""autocmd Filetype python nnoremap <F12>  <Esc>:REPLDebugStopAtCurrentLine<Cr>
+""autocmd Filetype python nnoremap <F10>  <Esc>:REPLPDBN<Cr>
+""autocmd Filetype python nnoremap <F12>  <Esc>:REPLPDBS<Cr>
+""let g:repl_positon = 3
+set background=dark
+set t_Co=256
+
+
+""set bsdir=buffer
+""'''''''''''''''''''''''''''''''''''''''''
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
+inoremap <C-o> <Esc>o
+inoremap <C-a> <Home>
+""inoremap <C-z> <Esc>A
+""nnoremap <C-z> A
+inoremap <C-e> <Esc>i$<Right>
+nnoremap <C-e> $
+
+""inoremap <C-s> <Esc>:w<CR>
+"inoremap <C-z> <Esc>:wq<CR>
+nnoremap <C-a> <Home>
+
+""""inoremap <C-x> <Esc><Right>xi
+inoremap <C-f> <Esc>
+inoremap <C-d> <Esc>ddi
+inoremap <C-p> <Esc>pi
+inoremap <C-y> <Esc>yyi
+inoremap <C-u> <Esc>ui
+
+""map! <C-e> <End>
+""""highlight VertSplit ctermbg=1 ctermfg=1

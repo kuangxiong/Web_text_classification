@@ -9,7 +9,9 @@
 '''
 import tensorflow as tf
 from tensorflow import  keras
-from models.Bilstm import ModelConfig
+
+# from models.Bilstm import ModelConfig
+
 from config import GlobalConfig, BASE_PATH
 from sklearn.model_selection import train_test_split
 import csv    

@@ -25,9 +25,9 @@ class BertBiLSTMConfig:
     n_classes = 3
     embedding_size = 516
     # Bert模型配置路径
-    bert_config_path = os.path.join(BASE_PATH, "data/bert_source/Chinese_L-12_H-768_A-12/bert_config.json")
-    bert_checkpoint_path = os.path.join(BASE_PATH, "data/bert_source/Chinese_L-12_H-768_A-12/bert_model.ckpt")
-    bert_vocab_path = os.path.join(BASE_PATH, "data/bert_source/Chinese_L-12_H-768_A-12/vocab.txt")
+    bert_config_path = os.path.join(BASE_PATH, "data/model_source/chinese_L-12_H-768_A-12/bert_config.json")
+    bert_checkpoint_path = os.path.join(BASE_PATH, "data/model_source/chinese_L-12_H-768_A-12/bert_model.ckpt")
+    bert_vocab_path = os.path.join(BASE_PATH, "data/model_source/chinese_L-12_H-768_A-12/vocab.txt")
     
 
 def bert_bilstm(ModelConfig):

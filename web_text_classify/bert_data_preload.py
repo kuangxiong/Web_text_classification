@@ -15,19 +15,22 @@ import pickle
 import codecs
 
 from data_util import data_load
+
 from keras_bert import Tokenizer
+
 from sklearn.model_selection import train_test_split
+
 from config import GlobalConfig, BASE_PATH
+
 import tensorflow as tf
 from tensorflow import keras
 # bert模型的配置文件
-from BertBilstm import BertModelConfig
+from models.bert_bilstm import BertBiLSTMConfig
 
 import sys
 sys.path.append("..")
 
-
-def bert_get_text_id(BertModelConfig, train_text, training=True, max_length=BertModelConfig.max_len):
+def bert_get_text_id(BertBiLSTMConfig, train_text, training=True, max_length=BertBiLSTMConfig.max_len):
     """
     将训练集上的文字字符转化为字编号
 
@@ -39,8 +42,9 @@ def bert_get_text_id(BertModelConfig, train_text, training=True, max_length=Bert
     Returns:
         [type]: [description]
     """
+
     token_dict = {}
-    with codecs.open(BertModelConfig.bert_vocab_path, 'r', 'utf8') as reader:
+    with codecs.open(GlobalConfig.bert_vocab_path, 'r', 'utf8') as reader:
         for line in reader:
             token = line.strip()
             token_dict[token] = len(token_dict)
@@ -52,7 +56,7 @@ def bert_get_text_id(BertModelConfig, train_text, training=True, max_length=Bert
     for i in range(N):
         tmp_text = train_text[i][1]
         indices, segments = tokenizer.encode(
-            first=tmp_text, max_len=BertModelConfig.max_len)
+            first=tmp_text, max_len=BertBiLSTMConfig.max_len)
         indices, segments = np.array(indices), np.array(segments)
         data_X_ind.append(indices)
         data_X_seg.append(segments)
@@ -71,7 +75,7 @@ def bert_get_text_id(BertModelConfig, train_text, training=True, max_length=Bert
         return data_X_ind, data_X_seg, data_id
 
 
-def bert_load_data(GlobalConfig, training=True, max_length=BertModelConfig.max_len):
+def bert_load_data(GlobalConfig, training=True, max_length=BertBiLSTMConfig.max_len):
     """
     生成训练数据集合
 
@@ -85,7 +89,7 @@ def bert_load_data(GlobalConfig, training=True, max_length=BertModelConfig.max_l
     train_data, test_data = data_load(GlobalConfig)
 
     if training == True:
-        train_text, train_seg, train_label_id = bert_get_text_id(BertModelConfig,
+        train_text, train_seg, train_label_id = bert_get_text_id(BertBiLSTMConfig,
                                                                  train_data, training,  max_length=max_length)
         train_id = list(map(int, train_label_id))
         train_label, N = [], len(train_label_id)
@@ -95,7 +99,7 @@ def bert_load_data(GlobalConfig, training=True, max_length=BertModelConfig.max_l
             train_label.append(tmp)
         return train_text, train_seg, train_label
     else:
-        test_text, test_seg, test_id = bert_get_text_id(BertModelConfig,
+        test_text, test_seg, test_id = bert_get_text_id(BertBiLSTMConfig,
                                                         test_data, training,  max_length=max_length)
         return test_text, test_seg, test_id
 
@@ -116,12 +120,13 @@ def bert_get_X_and_Y_data(data_text, data_label):
 
 
 if __name__ == '__main__':
+    print("helloworld")
     #    train_data, test_data = data_load(GlobalConfig)
     #    print(train_data[:5])
-    #tmp1, tmp2 = bert_get_text_id(BertModelConfig, train_data)
+    #tmp1, tmp2 = bert_get_text_id(BertBiLSTMConfig, train_data)
     #    print(tmp1[5])
     #    print(tmp2[5])
-    train_text, train_label = load_bert_dataset(GlobalConfig)
+    train_text, train_seg, train_label = bert_load_data(GlobalConfig)
 #    print(len(train_text[5][0]))
 #    print(train_label[5])
     # train_data, train_label, dev_data, dev_label = get_X_and_Y_data(train_text, train_id)
