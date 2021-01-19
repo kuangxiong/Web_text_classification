@@ -17,12 +17,12 @@ class BiLSTMConfig:
     n_vocab= 10000
     num_epochs = 10
     batch_size =128 
-    max_len = 100   
+    max_len = 100 
     learning_rate = 0.001
     hidden_size = 512
     n_classes = 3
 
-def BiLSTM(ModelConfig):
+def bilstm(ModelConfig):
     """
     BiLSTM 模型构造
 

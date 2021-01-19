@@ -9,7 +9,7 @@ from keras_bert import load_trained_model_from_checkpoint
 tmp_base_path = os.path.dirname(__file__)
 BASE_PATH = os.path.dirname(tmp_base_path)
 
-class BertWwmModelConfig:
+class BertWwmBiLSTMConfig:
     """ 
     Args:
         object ([type]): [description]
