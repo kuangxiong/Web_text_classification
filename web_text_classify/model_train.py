@@ -15,14 +15,15 @@ import argparse
 import os
 import time
 
-from models.Bilstm import BiLSTM, ModelConfig
+parser = argparse.ArgumentParser(description="web-text-classifier")
+parser.add_argument('--model', default="bert_bilstm", type=str)
+args = parser.parse_args()
+
+from models.model_name import BiLSTM, ModelConfig
 from data_preload import load_model_dataset, get_X_and_Y_data
 from config import GlobalConfig
 
 
-parser = argparse.ArgumentParser(description="web-text-classifier")
-parser.add_argument('--model', default="Bilstm", type=str)
-args = parser.parse_args()
 
 if __name__=='__main__':
     start_time = time.time()
