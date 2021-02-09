@@ -17,12 +17,14 @@ class GlobalConfig(object):
     def __init__(self, model_name):
 
     #    train_path = os.path.join(BASE_PATH, "data/data_source/nCoV_101k_train.labled.csv") 
-        self.train_path = "data/data_source/nCoV_100k_train.labled.csv"
+        self.train_path = "data/data_source/train.csv"
     #    train_label = os.path.join(BASE_PATH, 'data/Train_DataSet_label.csv')
     #    test_path = os.path.join(BASE_PATH, "data/data_source/nCoV_10k_test.csv") 
-        self.test_path = "data/data_source/nCov_10k_test.csv" 
+        self.test_path = "data/data_source/test.csv"
+    #    self.test_path = "data/data_source/nCov_10k_test.csv" 
 
-        self.vocab_dict=os.path.join(BASE_PATH,"word_dct.pkl")
+        self.vocab_dict = "data/data_source/word_dict.csv"
+#        self.vocab_dict=os.path.join(BASE_PATH,"data/word_dct.pkl")
     #   vocab_dict="data/word_dct.pkl"
 
     #   save_path=os.path.join(BASE_PATH, "save_model")

@@ -5,8 +5,10 @@ import os
 from keras_bert import Tokenizer
 from keras_bert import load_trained_model_from_checkpoint
 
-tmp_base_path = os.path.dirname(__file__)
-BASE_PATH = os.path.dirname(tmp_base_path)
+import sys
+sys.path.append("..")
+from config import GlobalConfig
+
 
 class BertBiLSTMConfig:
     """ 
@@ -25,9 +27,10 @@ class BertBiLSTMConfig:
     n_classes = 3
     embedding_size = 516
     # Bert模型配置路径
-    bert_config_path = os.path.join(BASE_PATH, "data/model_source/chinese_L-12_H-768_A-12/bert_config.json")
-    bert_checkpoint_path = os.path.join(BASE_PATH, "data/model_source/chinese_L-12_H-768_A-12/bert_model.ckpt")
-    bert_vocab_path = os.path.join(BASE_PATH, "data/model_source/chinese_L-12_H-768_A-12/vocab.txt")
+    global_config = GlobalConfig(model_name)
+    bert_config_path = global_config.config_path
+    bert_checkpoint_path = global_config.checkpoint_path
+    bert_vocab_path = global_config.vocab_path
     
 
 def bert_bilstm(ModelConfig):

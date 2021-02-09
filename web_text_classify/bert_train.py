@@ -24,11 +24,12 @@ sys.path.append("..")
 
 from models.bert_bilstm import bert_bilstm as mymodel 
 from models.bert_bilstm import BertBiLSTMConfig as ModelConfig
-from bert_data_preload import BertDataPreload 
+#from models.roberta_wwm_bilstm import roberta_wwm_bilstm as mymodel
+#from models.roberta_wwm_bilstm import RobertaWwmBiLSTMConfig as ModelConfig
 
+from bert_data_preload import BertDataPreload 
 #from bert_data_preload import bert_load_data
 from config import GlobalConfig
-
 
 parser = argparse.ArgumentParser(description="web-text-classifier")
 parser.add_argument('--model', default="Bilstm", type=str)
@@ -36,6 +37,7 @@ args = parser.parse_args()
 
 if __name__=='__main__':
     start_time = time.time()
+#model_name = "roberta_wwm_bilstm"
     model_name = "bert_bilstm"
     
     data_preload = BertDataPreload(GlobalConfig(model_name), ModelConfig)

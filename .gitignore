@@ -1,4 +1,5 @@
 *.csv
 data/
 old_source/
+text_ner_other
 
