@@ -107,8 +107,8 @@ class BertDataPreload(object):
 
 if __name__ == '__main__':
     print("helloworld")
-    #    train_data, test_data = data_load(GlobalConfig)
-    #    print(train_data[:5])
+#train_data, test_data = data_load(GlobalConfig)
+#    print(train_data[:5])
     #tmp1, tmp2 = bert_get_text_id(BertBiLSTMConfig, train_data)
     #    print(tmp1[5])
     #    print(tmp2[5])

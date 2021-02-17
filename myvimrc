@@ -191,10 +191,11 @@ inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 inoremap <C-o> <Esc>o
 inoremap <C-a> <Home>
-""inoremap <C-z> <Esc>A
-""nnoremap <C-z> A
-inoremap <C-e> <Esc>i$<Right>
-nnoremap <C-e> $
+inoremap <C-z> <Esc>A
+nnoremap <C-z> A
+"
+"inoremap <C-e> <Esc>i$<Right>
+"nnoremap <C-e> $
 
 ""inoremap <C-s> <Esc>:w<CR>
 "inoremap <C-z> <Esc>:wq<CR>

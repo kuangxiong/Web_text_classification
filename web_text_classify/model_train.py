@@ -24,8 +24,8 @@ sys.path.append("..")
 #from models.bert_bilstm import bert_bilstm as mymodel 
 #from models.bert_bilstm import BertBiLSTMConfig as ModelConfig
 
-from models.roberta_wwm_bilstm import roberta_wwm_bilstm as mymodel
-from models.roberta_wwm_bilstm import RobertaWwmBiLSTMConfig as ModelConfig
+from bert_models.roberta_wwm_bilstm import roberta_wwm_bilstm as mymodel
+from bert_models.roberta_wwm_bilstm import RobertaWwmBiLSTMConfig as ModelConfig
 from bert_data_preload import BertDataPreload 
 
 #from bert_data_preload import bert_load_data
