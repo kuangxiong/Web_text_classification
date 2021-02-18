@@ -38,6 +38,9 @@ class GlobalConfig(object):
             model_path = "./data/model_source/ernie_stable-1.0/ERNIE_tensor"
         if model_name =="roberta_wwm_bilstm":
             model_path = "./data/model_source/chinese_roberta_wwm_ext"
+        if model_name == "w2v_bilstm":
+            model_path = "word2vec/models/"
+            
 #    # Bert模型路径
 #
 #        bert_config_path = "./data/model_source/chinese_L-12_H-768_A-12/bert_config.json"

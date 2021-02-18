@@ -2,4 +2,6 @@
 data/
 old_source/
 text_ner_other/
-
+word2vec_pretrain_old/
+__pycache__/
+*.npy
